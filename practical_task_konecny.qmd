@@ -1,0 +1,149 @@
+# Task 1: 
+#Univerzium: planéta "Orionis"
+# -------------------------------
+# 1.1 Atomic Types --------------------------------------------------------
+
+# Numeric (double)
+mean_surface_temp <- 22.4          # priemerná teplota (°C)
+planet_area_mil_km2 <- 2.38        # povrch planéty v miliónoch km²
+mean_altitude_m <- 560.7           # priemerná nadmorská výška (m)
+exploration_index <- 4.6           # vedecko-turistický index (1-5)
+
+# Integer
+satellite_count <- as.integer(3)   # počet prirodzených satelitov
+urban_centers <- as.integer(9)     # počet väčších sídel
+population_k <- as.integer(3120)   # populácia v tisícoch
+
+# Logical
+has_liquid_water <- TRUE
+supports_life <- TRUE
+
+# Character
+celestial_body <- "Orionis"
+stellar_region <- "Helian Cluster"
+planet_type <- "Subtropical"
+
+# Výpis základných údajov
+cat("Planéta", celestial_body, "sa nachádza v oblasti", stellar_region, 
+    "a je typu", planet_type, ".\n")
+cat("Má", satellite_count, "satelity,", urban_centers, 
+    "urbanistické centrá a populáciu približne", population_k, "tisíc.\n")
+cat("Priemerná povrchová teplota je", mean_surface_temp, "°C a index prieskumu je", exploration_index, "/5.\n")
+cat("Tekutá voda:", has_liquid_water, "— Podporuje život:", supports_life, "\n\n")
+
+# 1.2 Vectors -------------------------------------------------------------
+
+# Kombinácia numeric + integer premenných
+quantitative_vector <- c(mean_surface_temp, planet_area_mil_km2,
+                         mean_altitude_m, exploration_index,
+                         as.numeric(satellite_count),
+                         as.numeric(urban_centers),
+                         as.numeric(population_k))
+print("Kombinovaný numerický vektor:")
+print(quantitative_vector)
+
+# Sekvenčný vektor: od 27 do 100 po 8
+progression_vector <- seq(from = 27, to = 100, by = 8)
+print("Sekvenčný vektor (27 to 100 by 8):")
+print(progression_vector)
+
+# Logický vektor s náhodnými hodnotami TRUE/FALSE
+set.seed(321)
+binary_pattern <- sample(c(TRUE, FALSE), size = 10, replace = TRUE)
+print("Náhodný logický vektor (10 prvkov):")
+print(binary_pattern)
+cat("\n")
+
+# 1.3 Matrix --------------------------------------------------------------
+
+# 3x3 matica s náhodnými hodnotami od -50 do 50
+set.seed(99)
+matrix_elements <- sample(-50:50, size = 9, replace = TRUE)
+orionis_grid <- matrix(matrix_elements, nrow = 3, ncol = 3, byrow = TRUE)
+rownames(orionis_grid) <- c("Polar_Belt", "Equatorial_Range", "Southern_Rift")
+colnames(orionis_grid) <- c("Zone_X", "Zone_Y", "Zone_Z")
+
+print("Orionis 3x3 matica:")
+print(orionis_grid)
+
+# Priemery riadkov a stĺpcov
+row_means_orionis <- rowMeans(orionis_grid)
+col_means_orionis <- colMeans(orionis_grid)
+cat("Priemery riadkov:\n"); print(row_means_orionis)
+cat("Priemery stĺpcov:\n"); print(col_means_orionis)
+cat("\n")
+
+# 1.4 List ----------------------------------------------------------------
+
+orionis_compendium <- list(
+  mean_surface_temp = mean_surface_temp,
+  planet_area_mil_km2 = planet_area_mil_km2,
+  mean_altitude_m = mean_altitude_m,
+  exploration_index = exploration_index,
+  satellite_count = satellite_count,
+  urban_centers = urban_centers,
+  population_k = population_k,
+  has_liquid_water = has_liquid_water,
+  supports_life = supports_life,
+  celestial_body = celestial_body,
+  stellar_region = stellar_region,
+  planet_type = planet_type,
+  quantitative_vector = quantitative_vector,
+  progression_vector = progression_vector,
+  binary_pattern = binary_pattern,
+  orionis_grid = orionis_grid,
+  description = "Orionis je subtropická planéta s rozsiahlym oceánskym pásom, 
+                 vyváženou biosférou a prosperujúcou vedeckou komunitou 
+                 v rámci Helian Clusteru."
+)
+
+print("Prehľad položiek v orionis_compendium:")
+print(names(orionis_compendium))
+cat("\n")
+
+# 1.5 Factor --------------------------------------------------------------
+
+# Faktor reprezentujúci úroveň zdrojov v rôznych oblastiach
+resource_tier <- factor(c("high", "medium", "low", "medium", "low", "high", "medium"),
+                        levels = c("low", "medium", "high"),
+                        ordered = TRUE)
+print("Resource Tier Factor:")
+print(resource_tier)
+
+cat("Tabuľka úrovní zdrojov:\n")
+print(table(resource_tier))
+cat("\n")
+
+# 1.6 Data Frame ----------------------------------------------------------
+
+# Dátový rámec: mestá/regióny planéty Orionis
+settlement_names <- c("Altaris", "Virella", "Nemoris", "Caldora", "Zenithia", "Meridion")
+inhabitants_k <- c(540, 410, 180, 265, 620, 205)
+energy_index <- c(980, 730, 350, 480, 1300, 390)
+regional_temp_C <- c(23.4, 20.1, 14.7, 19.9, 16.5, 18.3)
+hab_status <- c(TRUE, TRUE, TRUE, TRUE, TRUE, FALSE)
+terrain_type <- factor(c("coastal", "inland", "plateau", "coastal", "plateau", "wetland"))
+
+orionis_data <- data.frame(
+  Region = settlement_names,
+  Population_k = inhabitants_k,
+  EnergyIndex = energy_index,
+  AvgTemp_C = regional_temp_C,
+  Habitable = hab_status,
+  Terrain = terrain_type,
+  stringsAsFactors = FALSE
+)
+
+cat("Štruktúra dátového rámca orionis_data:\n")
+str(orionis_data)
+cat("\nSúhrn dátového rámca:\n")
+print(summary(orionis_data))
+cat("\n")
+
+# Nový stĺpec – Energetický index na osobu
+orionis_data$Energy_per_capita <- orionis_data$EnergyIndex / (orionis_data$Population_k * 1000)
+
+cat("Data frame s pridaným výpočtovým stĺpcom:\n")
+print(orionis_data)
+
+cat("\n-- Hotovo: dátový svet planéty Orionis je inicializovaný. --\n")
