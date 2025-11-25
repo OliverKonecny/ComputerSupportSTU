@@ -1,0 +1,52 @@
+---
+title: "Task 3"
+format: html
+editor: visual
+---
+```{r}
+# ------------------------------
+# Task 3: Expanding Your Universe
+# Dataset: Chilean cities
+# Source: https://simplemaps.com/data/world-cities
+# ------------------------------
+
+# 1. Load libraries
+library(dplyr)
+library(readxl)
+
+# 2. Import dataset
+my_real_data <- read_excel("cl.xlsx")
+
+# 3. First inspection
+glimpse(my_real_data)
+head(my_real_data)
+summary(my_real_data)
+
+# 4. Exploration with dplyr
+
+## Question 1: Which 5 cities have the highest population?
+my_real_data %>%
+  select(city, population) %>%
+  arrange(desc(population)) %>%
+  head(5)
+
+## Question 2: What is the average population of cities in each administrative region?
+my_real_data %>%
+  group_by(admin_name) %>%
+  summarise(avg_population = mean(population, na.rm = TRUE))
+
+## Question 3: How many cities are classified as "admin", "minor", or "primary" capitals?
+my_real_data %>%
+  group_by(capital) %>%
+  summarise(count = n())
+
+## Question 4: Create a new column for population difference between total population and proper population.
+my_real_data %>%
+  mutate(pop_diff = population - population_proper) %>%
+  select(city, population, population_proper, pop_diff)
+
+## Question 5: Find all cities south of latitude -40 with population greater than 100,000.
+my_real_data %>%
+  filter(lat < -40, population > 100000) %>%
+  select(city, lat, population)
+```
